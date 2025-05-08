@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { generateRecommendations } from '@/lib/recommendations';
-import AIRecommendations from '@/components/AIRecommendations';
 import { 
   FormData, 
   LearningStyle, 
@@ -28,7 +27,6 @@ export default function StudyQuiz() {
     distraction: 'phone',
   });
   const [recommendations, setRecommendations] = useState<Recommendation | null>(null);
-  const [useAI, setUseAI] = useState<boolean>(true);
 
   // Update progress bar width based on current step
   const progressWidth = () => {
@@ -550,31 +548,6 @@ export default function StudyQuiz() {
                       <option value="environment">Noisy environment</option>
                     </select>
                   </div>
-
-                  {/* AI Recommendation option */}
-                  <div className="mt-6 border border-primary/20 rounded-lg p-4 bg-primary/5">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-2">
-                        <h4 className="text-gray-700 font-medium">Use AI-Powered Recommendations</h4>
-                        <div className="text-xs bg-primary-100 text-primary-800 px-2 py-0.5 rounded-full">Recommended</div>
-                      </div>
-                      <div className="flex items-center">
-                        <div 
-                          className={`w-10 h-6 ${useAI ? 'bg-primary' : 'bg-gray-200'} rounded-full p-1 duration-300 ease-in-out cursor-pointer`} 
-                          onClick={() => setUseAI(!useAI)}
-                        >
-                          <div 
-                            className={`bg-white w-4 h-4 rounded-full shadow-md transform duration-300 ease-in-out ${useAI ? 'translate-x-4' : ''}`}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <p className="text-sm text-gray-600">
-                      Generate personalized study recommendations using Google's Gemini AI technology. 
-                      Our AI will analyze your preferences and provide customized study techniques, 
-                      session structure, and study environment recommendations.
-                    </p>
-                  </div>
                 </div>
                 
                 <div className="mt-8 flex justify-between">
@@ -607,8 +580,8 @@ export default function StudyQuiz() {
               </div>
             )}
             
-            {/* Results - Standard Recommendations */}
-            {currentStep === 4 && recommendations && !useAI && (
+            {/* Results */}
+            {currentStep === 4 && recommendations && (
               <div>
                 <div className="text-center mb-6">
                   <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary-100 text-primary mb-4">
@@ -809,81 +782,6 @@ export default function StudyQuiz() {
                       />
                     </svg>
                     Download Study Plan
-                  </button>
-                </div>
-              </div>
-            )}
-            
-            {/* AI-powered Results */}
-            {currentStep === 4 && recommendations && useAI && (
-              <div>
-                <div className="text-center mb-6">
-                  <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary-100 text-primary mb-4">
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      className="h-8 w-8" 
-                      fill="none" 
-                      viewBox="0 0 24 24" 
-                      stroke="currentColor"
-                    >
-                      <path 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round" 
-                        strokeWidth="2" 
-                        d="M13 10V3L4 14h7v7l9-11h-7z" 
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-1">Your AI-Powered Study Recommendations</h3>
-                  <p className="text-gray-600">Personalized recommendations powered by Google Gemini AI</p>
-                </div>
-
-                <AIRecommendations
-                  learningStyle={formData.learningStyle || ''}
-                  attentionSpan={formData.attentionSpan}
-                  studyTime={formData.studyTime || ''}
-                  environment={formData.environment || ''}
-                  interests={['education', 'learning', 'productivity']}
-                />
-                
-                <div className="mt-8 flex justify-between">
-                  <button 
-                    className="border border-gray-300 hover:bg-gray-50 text-gray-700 px-6 py-2 rounded-lg font-medium transition flex items-center"
-                    onClick={restartQuiz}
-                  >
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      className="h-5 w-5 mr-1" 
-                      viewBox="0 0 20 20" 
-                      fill="currentColor"
-                    >
-                      <path 
-                        fillRule="evenodd" 
-                        d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" 
-                        clipRule="evenodd" 
-                      />
-                    </svg>
-                    Start Over
-                  </button>
-                  <button 
-                    className="bg-secondary hover:bg-secondary/90 text-white px-6 py-2 rounded-lg font-medium transition flex items-center"
-                    onClick={() => {
-                      window.print();
-                    }}
-                  >
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      className="h-5 w-5 mr-1" 
-                      viewBox="0 0 20 20" 
-                      fill="currentColor"
-                    >
-                      <path 
-                        fillRule="evenodd" 
-                        d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" 
-                        clipRule="evenodd" 
-                      />
-                    </svg>
-                    Save Recommendations
                   </button>
                 </div>
               </div>
