@@ -30,18 +30,18 @@ export default function Header() {
         <nav className="hidden md:block">
           <ul className="flex space-x-6">
             <li>
-              <Link href="#">
-                <a className="text-gray-500 hover:text-primary transition">About</a>
+              <Link href="#about" className="text-gray-500 hover:text-primary transition">
+                About
               </Link>
             </li>
             <li>
-              <Link href="#">
-                <a className="text-gray-500 hover:text-primary transition">Resources</a>
+              <Link href="#resources" className="text-gray-500 hover:text-primary transition">
+                Resources
               </Link>
             </li>
             <li>
-              <Link href="#">
-                <a className="text-gray-500 hover:text-primary transition">Contact</a>
+              <Link href="#newsletter" className="text-gray-500 hover:text-primary transition">
+                Contact
               </Link>
             </li>
           </ul>
@@ -68,33 +68,27 @@ export default function Header() {
         <div className="md:hidden bg-white px-4 py-2 shadow-md">
           <ul className="space-y-2 pb-3">
             <li>
-              <Link href="#">
-                <a 
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-primary hover:bg-gray-50 transition"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  About
-                </a>
+              <Link href="#about" 
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-primary hover:bg-gray-50 transition"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                About
               </Link>
             </li>
             <li>
-              <Link href="#">
-                <a 
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-primary hover:bg-gray-50 transition"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Resources
-                </a>
+              <Link href="#resources" 
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-primary hover:bg-gray-50 transition"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Resources
               </Link>
             </li>
             <li>
-              <Link href="#">
-                <a 
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-primary hover:bg-gray-50 transition"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Contact
-                </a>
+              <Link href="#newsletter" 
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:text-primary hover:bg-gray-50 transition"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
               </Link>
             </li>
           </ul>

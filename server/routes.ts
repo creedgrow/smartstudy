@@ -6,7 +6,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // API endpoint for newsletter subscription
   app.post('/api/newsletter', async (req, res) => {
     try {
-      const { email, agreedToTerms } = req.body;
+      const { email, name, resourceInterests, skillLevel, agreedToTerms } = req.body;
       
       // Validate input
       if (!email || typeof email !== 'string') {
@@ -17,8 +17,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: 'You must agree to receive our newsletter' });
       }
       
-      // In a real application, you would store this in a database
-      // For now, we'll just return a success response
+      // Log subscription info (in a real application, this would be saved to a database)
+      console.log('New newsletter subscription:', {
+        email,
+        name: name || 'Not provided',
+        resourceInterests: resourceInterests || [],
+        skillLevel: skillLevel || 'Not specified',
+        subscribedAt: new Date().toISOString()
+      });
+      
+      // Return success response
       return res.status(200).json({ 
         message: 'Successfully subscribed to newsletter',
         subscribed: true 
