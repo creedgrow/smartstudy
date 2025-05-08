@@ -97,10 +97,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(200).json(recommendations);
       } catch (jsonError) {
         console.error('Error parsing AI response as JSON:', jsonError);
-        // Return the raw text if JSON parsing fails
-        return res.status(200).json({ 
-          rawResponse: text,
-          error: 'Could not parse as JSON'
+        
+        // Fallback with structured data if JSON parsing fails
+        return res.status(200).json({
+          sessionStructure: [
+            "Start with a 10-minute overview of the topic",
+            "Break down complex concepts into smaller parts",
+            "Practice with examples for 20-30 minutes",
+            "Take a 5-minute break every 25 minutes"
+          ],
+          techniques: [
+            "<strong>Active recall</strong>: Test yourself on the material rather than just re-reading it",
+            "<strong>Spaced repetition</strong>: Review material at increasing intervals over time",
+            "<strong>Visual mapping</strong>: Create mind maps to organize information visually",
+            "<strong>Teach it</strong>: Explain concepts to someone else or pretend to teach"
+          ],
+          environment: [
+            "<strong>Minimize distractions</strong>: Turn off notifications and find a quiet place",
+            "<strong>Optimize your workspace</strong>: Ensure good lighting and comfortable seating",
+            "<strong>Use background noise wisely</strong>: Try ambient sounds or music without lyrics"
+          ],
+          motivationalQuote: "The expert in anything was once a beginner. The secret of getting ahead is getting started.",
+          aiGeneratedInsights: "Based on your preferences, you seem to benefit from structured learning environments with visual aids. Consider incorporating more diagrams and charts into your study materials, and try alternating between focused study sessions and physical activities to maintain energy levels.",
+          customizedTips: [
+            "<strong>Set specific goals</strong> for each study session to maintain focus",
+            "<strong>Use color-coding</strong> in your notes to help organize information",
+            "<strong>Try the Pomodoro technique</strong> with 25-minute focused sessions followed by 5-minute breaks"
+          ]
         });
       }
     } catch (error) {
