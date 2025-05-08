@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { generateRecommendations } from '@/lib/recommendations';
+import AIRecommendations from '@/components/AIRecommendations';
 import { 
   FormData, 
   LearningStyle, 
@@ -27,6 +28,7 @@ export default function StudyQuiz() {
     distraction: 'phone',
   });
   const [recommendations, setRecommendations] = useState<Recommendation | null>(null);
+  const [useAI, setUseAI] = useState<boolean>(true);
 
   // Update progress bar width based on current step
   const progressWidth = () => {
@@ -547,6 +549,31 @@ export default function StudyQuiz() {
                       <option value="procrastination">Procrastination</option>
                       <option value="environment">Noisy environment</option>
                     </select>
+                  </div>
+
+                  {/* AI Recommendation option */}
+                  <div className="mt-6 border border-primary/20 rounded-lg p-4 bg-primary/5">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center space-x-2">
+                        <h4 className="text-gray-700 font-medium">Use AI-Powered Recommendations</h4>
+                        <div className="text-xs bg-primary-100 text-primary-800 px-2 py-0.5 rounded-full">Recommended</div>
+                      </div>
+                      <div className="flex items-center">
+                        <div 
+                          className={`w-10 h-6 ${useAI ? 'bg-primary' : 'bg-gray-200'} rounded-full p-1 duration-300 ease-in-out cursor-pointer`} 
+                          onClick={() => setUseAI(!useAI)}
+                        >
+                          <div 
+                            className={`bg-white w-4 h-4 rounded-full shadow-md transform duration-300 ease-in-out ${useAI ? 'translate-x-4' : ''}`}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600">
+                      Generate personalized study recommendations using Google's Gemini AI technology. 
+                      Our AI will analyze your preferences and provide customized study techniques, 
+                      session structure, and study environment recommendations.
+                    </p>
                   </div>
                 </div>
                 
